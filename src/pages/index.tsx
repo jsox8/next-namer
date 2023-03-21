@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 
 export default function Home() {
-	const [name, changeName] = useState<any[]>([]);
+	const [name, changeName] = useState<string[]>([]);
 	const [length, setLength] = useState(0);
 
 	async function FetchNewName() {

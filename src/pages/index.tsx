@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
-import Link from 'next/link';
 
 export default function Home() {
-	const [name, changeName] = useState([]);
+	const [name, changeName] = useState<any[]>([]);
 	const [length, setLength] = useState(0);
 
 	async function FetchNewName() {
-		const res = await (
+		const res: { first_name: string; last_name: string } = await (
 			await fetch(`http://localhost:3000/api/names/add`)
 		).json();
 

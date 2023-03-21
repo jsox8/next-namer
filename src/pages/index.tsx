@@ -7,7 +7,7 @@ export default function Home() {
 
 	async function FetchNewName() {
 		const res: { first_name: string; last_name: string } = await (
-			await fetch(`${process.env.WEB_URL}/api/names/add`)
+			await fetch(`https://next-namer.vercel.app/api/names/add`)
 		).json();
 
 		changeName([res.first_name, res.last_name]);
@@ -16,7 +16,7 @@ export default function Home() {
 	async function getNamesLength() {
 		try {
 			const res = await (
-				await fetch(`${process.env.WEB_URL}/api/names/length`)
+				await fetch(`https://next-namer.vercel.app/api/names/length`)
 			).json();
 
 			setLength(res.length);

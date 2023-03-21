@@ -7,18 +7,22 @@ export default function Home() {
 
 	async function FetchNewName() {
 		const res: { first_name: string; last_name: string } = await (
-			await fetch(`http://localhost:3000/api/names/add`)
+			await fetch(`${process.env.WEB_URL}/api/names/add`)
 		).json();
 
 		changeName([res.first_name, res.last_name]);
 	}
 
 	async function getNamesLength() {
-		const res = await (
-			await fetch(`http://localhost:3000/api/names/length`)
-		).json();
+		try {
+			const res = await (
+				await fetch(`${process.env.WEB_URL}/api/names/length`)
+			).json();
 
-		setLength(res.length);
+			setLength(res.length);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	getNamesLength();

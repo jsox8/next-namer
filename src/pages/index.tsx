@@ -10,10 +10,11 @@ const PRODUCTION_URL = 'https://next-namer.vercel.app';
 export default function Home() {
 	const [name, changeName] = useState<string[]>([]);
 	const [length, setLength] = useState(0);
+	const [saveName, setSaveName] = useState('');
 
 	async function FetchNewName() {
 		const res: { first_name: string; last_name: string } = await (
-			await fetch(`${PRODUCTION_URL}/api/names/add`)
+			await fetch(`${DEVELOPMENT_URL}/api/names/add`)
 		).json();
 
 		changeName([res.first_name, res.last_name]);
@@ -22,7 +23,7 @@ export default function Home() {
 	async function getNamesLength() {
 		try {
 			const res = await (
-				await fetch(`${PRODUCTION_URL}/api/names/length`)
+				await fetch(`${DEVELOPMENT_URL}/api/names/length`)
 			).json();
 
 			setLength(res.length);
@@ -50,11 +51,39 @@ export default function Home() {
 		});
 	}
 
+	function SaveName() {
+		if (typeof window !== 'undefined') {
+			const names = JSON.parse(localStorage.getItem('names') || '[]');
+
+			const fullName = name[0] + ' ' + name[1];
+
+			if (
+				!names.some((e: { name: string; date: Date }) => e.name === fullName)
+			) {
+				names.push({ name: fullName, date: new Date().toLocaleString() });
+			}
+
+			localStorage.setItem('names', JSON.stringify(names));
+
+			toast.success('Name saved successfully!', {
+				position: toast.POSITION.BOTTOM_RIGHT,
+			});
+		}
+	}
+
 	getNamesLength();
 
 	return (
 		<>
-			<Navbar title={'Home'} name={'About'} link={'/about'} />
+			<Navbar
+				links={{
+					title: 'Home',
+					others: [
+						['About', '/about'],
+						['Dashboard', '/dashboard'],
+					],
+				}}
+			/>
 			<div className="flex justify-center py-5">
 				<h2 className="font-medium px-5 py-5 text-2xl">
 					{name.length !== 0
@@ -77,14 +106,15 @@ export default function Home() {
 					/>
 				</svg>
 			</div>
-			<div className="flex justify-center">
-				{/* <button
-					onClick={FetchNewName}
-					className="flex py-2 px-10 bg-sky-500 text-white font-medium rounded-md text-center"
-				>
-					Change your name!
-				</button> */}
-				<ButtonGradient name={'Change the Name!'} func={FetchNewName} />
+			<div className="flex justify-center place-items-center">
+				<ButtonGradient
+					name={'Change the Name!'}
+					func={FetchNewName}
+					type={'blue'}
+				/>
+				{name.length === 2 && (
+					<ButtonGradient name={'Save Name'} func={SaveName} type={'green'} />
+				)}
 			</div>
 			<footer className="fixed bottom-0 px-2 py-2">
 				{`There are currently ${length} names available.`} Built with

@@ -13,7 +13,7 @@ export default function Home() {
 
 	async function FetchNewName() {
 		const res: { first_name: string; last_name: string } = await (
-			await fetch(`${DEVELOPMENT_URL}/api/names/add`)
+			await fetch(`${PRODUCTION_URL}/api/names/add`)
 		).json();
 
 		changeName([res.first_name, res.last_name]);
@@ -22,7 +22,7 @@ export default function Home() {
 	async function getNamesLength() {
 		try {
 			const res = await (
-				await fetch(`${DEVELOPMENT_URL}/api/names/length`)
+				await fetch(`${PRODUCTION_URL}/api/names/length`)
 			).json();
 
 			setLength(res.length);

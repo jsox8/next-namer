@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
+import ButtonGradient from '@/components/UI/ButtonGradient';
 
 const DEVELOPMENT_URL = 'http://localhost:3000';
 const PRODUCTION_URL = 'https://next-namer.vercel.app';
@@ -41,12 +42,13 @@ export default function Home() {
 				</h2>
 			</div>
 			<div className="flex justify-center">
-				<button
+				{/* <button
 					onClick={FetchNewName}
 					className="flex py-2 px-10 bg-sky-500 text-white font-medium rounded-md text-center"
 				>
 					Change your name!
-				</button>
+				</button> */}
+				<ButtonGradient name={'Change the Name!'} func={FetchNewName} />
 			</div>
 			<footer className="fixed bottom-0 px-2 py-2">
 				{`There are currently ${length} names available.`} Built with

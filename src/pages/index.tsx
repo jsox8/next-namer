@@ -53,6 +53,11 @@ export default function Home() {
 			<footer className="fixed bottom-0 px-2 py-2">
 				{`There are currently ${length} names available.`} Built with
 				<a href="https://nextjs.org/"> Next.js</a>
+				<a href="https://github.com/maxx-em/next-namer">
+					<svg>
+						<use xlinkHref="/github-mark.svg" />
+					</svg>
+				</a>
 			</footer>
 		</>
 	);

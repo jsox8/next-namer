@@ -22,6 +22,12 @@ export default function Navbar({ name, link, title }: Navbar) {
 						>
 							{name}
 						</Link>
+						<Link
+							href={'https://github.com/maxx-em/next-namer'}
+							className="lg:inline-flex lg:w-auto w-full px-3 py-2 text-white font-normal items-center justify-center"
+						>
+							Github
+						</Link>
 					</div>
 				</div>
 			</nav>

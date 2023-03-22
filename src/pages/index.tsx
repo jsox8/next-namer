@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 
+const DEVELOPMENT_URL = 'http://localhost:3000';
+const PRODUCTION_URL = 'https://next-namer.vercel.app';
+
 export default function Home() {
 	const [name, changeName] = useState<string[]>([]);
 	const [length, setLength] = useState(0);
 
 	async function FetchNewName() {
 		const res: { first_name: string; last_name: string } = await (
-			await fetch(`https://next-namer.vercel.app/api/names/add`)
+			await fetch(`${PRODUCTION_URL}/api/names/add`)
 		).json();
 
 		changeName([res.first_name, res.last_name]);
@@ -16,7 +19,7 @@ export default function Home() {
 	async function getNamesLength() {
 		try {
 			const res = await (
-				await fetch(`https://next-namer.vercel.app/api/names/length`)
+				await fetch(`${PRODUCTION_URL}/api/names/length`)
 			).json();
 
 			setLength(res.length);
@@ -37,10 +40,10 @@ export default function Home() {
 						: 'Click the button to change!'}
 				</h2>
 			</div>
-			<div className="flex justify-center ">
+			<div className="flex justify-center">
 				<button
 					onClick={FetchNewName}
-					className="py-2 px-10 bg-sky-500 text-white font-medium rounded-lg text-center"
+					className="flex py-2 px-10 bg-sky-500 text-white font-medium rounded-md text-center"
 				>
 					Change your name!
 				</button>

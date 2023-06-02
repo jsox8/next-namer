@@ -1,36 +1,42 @@
-'use client';
-
 import Navbar from '@/components/Navbar';
-import { usePathname } from 'next/navigation';
 import '@/styles/globals.css';
+import { Metadata } from 'next';
+import { Toaster } from 'sonner';
+import { Inter } from 'next/font/google';
+import { cn } from '@/lib/utils';
 
-function capitalizeFirstLetter(string: string) {
-	return string[0].toUpperCase() + string.slice(1);
-}
+export const metadata = {
+	title: 'Home',
+	description: "Here's the homepage.",
+};
+
+const fontSans = Inter({
+	subsets: ['latin'],
+	variable: '--font-sans',
+});
 
 export default function RootLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
-	const pathname = usePathname().replace('/', '');
 	return (
-		<html lang="en">
-			<body>
+		<html lang="en" suppressHydrationWarning>
+			<body
+				className={cn(
+					'min-h-screen bg-background dark:bg- font-sans antialiased',
+					fontSans.variable
+				)}
+			>
 				<Navbar
-					data={{
-						title: pathname === '' ? 'Home' : capitalizeFirstLetter(pathname),
-						links: [
-							['Home', '/'],
-							['About', '/about'],
-							['Dashboard', '/dashboard'],
-						],
-					}}
+					links={[
+						['Home', '/'],
+						['About', '/about'],
+						['Dashboard', '/dashboard'],
+					]}
 				/>
-
-				<main className="grid overflow-hidden justify-center min-h-screen bg-gradient-to-b from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 text-slate-900 dark:text-slate-200">
-					{children}
-				</main>
+				<main className="flex overflow-hidden justify-center">{children}</main>
+				{/* <Toaster /> */}
 			</body>
 		</html>
 	);

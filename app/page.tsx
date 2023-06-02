@@ -2,6 +2,7 @@
 
 import FetchNamesLength from '@/lib/FetchNamesLength';
 import FetchNewName from '@/lib/FetchNewName';
+import { toast } from 'sonner';
 
 import { useEffect, useState } from 'react';
 
@@ -50,6 +51,7 @@ export default function Home() {
 			// toast.success('Name saved successfully!', {
 			// 	position: toast.POSITION.BOTTOM_RIGHT,
 			// });
+			toast('Name saved successfully');
 		}
 	}
 

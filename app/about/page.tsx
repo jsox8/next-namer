@@ -7,9 +7,11 @@ export function generateMetadata() {
 
 export default function AboutPage() {
 	return (
-		<p className="flex justify-start text-xl p-5 text-left">
-			Next Namer is Small Side-Project built with Next.js, Typescript and
-			TailwindCSS.
-		</p>
+		<div className="flex justify-start text-xl p-5 text-left">
+			<p>
+				Next Namer is Small Side-Project built with Next.js, Typescript and
+				TailwindCSS.
+			</p>
+		</div>
 	);
 }

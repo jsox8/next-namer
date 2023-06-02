@@ -1,29 +1,58 @@
+'use client';
+
+import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Button, buttonVariants } from './ui/button';
+
+function capitalizeFirstLetter(string: string) {
+	return string[0].toUpperCase() + string.slice(1);
+}
 
 type Navbar = {
-	data: { title: string; links: string[][] };
+	links: string[][];
 };
 
-export default function Navbar({ data }: Navbar) {
-	return (
-		<nav className="flex items-center flex-wrap p-5 bg-slate-100 dark:bg-slate-800 sticky top-0 z-50">
-			<span className="font-semibold text-2xl text-slate-900 dark:text-slate-100">
-				{data.title}
-			</span>
+export default function Navbar({ links }: Navbar) {
+	const pathname = usePathname().replace('/', '');
 
-			<div className="hidden w-full lg:inline-flex lg:flex-grow lg:w-auto">
-				<div className="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto">
-					{data.links.map((link: string[], index: number) => (
-						<Link
-							key={index + 1}
-							href={link[1]}
-							className="lg:inline-flex lg:w-auto w-full px-3 py-2 text-slate-900 dark:text-slate-100 font-medium items-center justify-center"
-						>
-							{link[0]}
-						</Link>
-					))}
+	const title = pathname === '' ? 'Home' : capitalizeFirstLetter(pathname);
+
+	return (
+		<header className={`container sticky top-0 z-101`}>
+			<div className="flex h-20 items-center justify-between py-6">
+				<div className="flex gap-6 md:gap-10">
+					<Link href="/" className="hidden items-center space-x-2 md:flex">
+						<span className="hidden font-bold sm:inline-block">{title}</span>
+					</Link>
+					{links?.length ? (
+						<nav className="hidden gap-6 md:flex md:items-center md:justify-between">
+							{links?.map((item, index) => (
+								<Link
+									key={index}
+									href={item[1]}
+									className={cn(
+										'flex items-center text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm'
+									)}
+								>
+									{item[0]}
+								</Link>
+							))}
+						</nav>
+					) : null}
 				</div>
+				<nav>
+					<Link
+						className={cn(
+							buttonVariants({ variant: 'default', size: 'sm' }),
+							'px-6'
+						)}
+						href={''}
+					>
+						Login
+					</Link>
+				</nav>
 			</div>
-		</nav>
+		</header>
 	);
 }

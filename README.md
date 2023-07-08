@@ -41,4 +41,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## Next Namer
 
 ## ❌ This an old project that most likey won't be Maintained!
+<<<<<<< HEAD
 >>>>>>> 3e250ce (Update README.md)
+=======
+>>>>>>> 3e250ce5e1b148c4ab877d8663ddcf028d489f15
